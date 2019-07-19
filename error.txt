@@ -1,0 +1,14 @@
+# Error 1
+Exception in Tkinter callback
+Traceback (most recent call last):
+  File "C:\Python\Python37\lib\tkinter\__init__.py", line 1705, in __call__
+    return self.func(*args)
+  File "D:\Projects\IDE\MyIDE\Notepad.py", line 133, in openFile
+    self.NotepadTextArea.insert(1.0,file.read())
+  File "C:\Python\Python37\lib\encodings\cp1252.py", line 23, in decode
+    return codecs.charmap_decode(input,self.errors,decoding_table)[0]
+UnicodeDecodeError: 'charmap' codec can't decode byte 0x81 in position 3176: character maps to <undefined>
+
+
+
+
