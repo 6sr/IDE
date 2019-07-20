@@ -14,9 +14,11 @@ class Notepad:
     # default window width and height
     NotepadWidth = 100
     NotepadHeight = 100
-    NotepadTextArea = Text(master,bg = '#00001a', fg = "#ffffff", insertbackground = "#ffffff", undo = True, font=("Verdana", 11), tabs = 20)
+    NotepadTextArea = Text(master,bg = '#00001a', fg = "#ffffff", insertbackground = "#ffffff", undo = True, font=("Consolas", 11))
     NotepadMenuBar = Menu(master)
     NotepadScrollbar = Scrollbar(NotepadTextArea)
+
+    bracketsInText = 0
     
     MenuBarDict = {
         "FileMenu": Menu(NotepadMenuBar, tearoff=0),
@@ -53,10 +55,22 @@ class Notepad:
         # Adding Primary menu to the master window
         self.master.config(menu = self.NotepadMenuBar)
         
-        # Binding Enter key press event to AddIndentation function
+        buttonPressed = "Hello"
+        def callbackToBind(evt, temp = buttonPressed):
+            return self.insertTab(temp)
+        
+        # For binding key press event 
         self.NotepadTextArea.pack()
-        self.NotepadTextArea.bind("<KeyRelease-Return>", self.AddIndentation)
-
+        # Binding Enter key press event to AddIndentation function
+        keyList = ["KeyPress-Return", "Tab", "}", "{"]     # "Enter"
+        for buttonPressed in keyList:
+            self.NotepadTextArea.bind('<' + buttonPressed + '>', lambda temp = buttonPressed: self.handlePressedKey(temp))
+            # lambda evt, temp=button_name: self.OnButton(evt, temp)
+            # self.NotepadTextArea.bind("<Enter>", self.AddIndentation)
+            # self.NotepadTextArea.bind("<KeyRelease-Return>", self.AddIndentation)
+            # self.NotepadTextArea.bind("<}>", closeBracketPressed)
+            # self.NotepadTextArea.bind("<Tab>", tabPressed)
+        
         ##### Adding secondary menus to the primary menu bar #####
         # ["",None] adds line in the dropdown
         fileOptions = [
@@ -120,6 +134,29 @@ class Notepad:
 
 
     ##################################  CONSTRUCTOR FUNCTIONS  ##########################################################
+    def handlePressedKey(self, keyPressed):
+        print("Pressed")
+        print(keyPressed)
+        if keyPressed.char == "\r":
+            self.NotepadTextArea.insert("insert", '\n')
+            self.AddIndentation()
+        elif keyPressed.char == "\t":
+            self.NotepadTextArea.insert("insert", ' ' * 4)
+        elif keyPressed.char == "{":
+            self.NotepadTextArea.insert("insert", '{')
+            self.bracketsInText += 1
+        elif keyPressed.char == "}":
+            self.bracketsInText -= 1
+            curr = self.NotepadTextArea.get("end-1c linestart","end")
+            print(':' + curr + ':')
+            if curr.strip() == "" or curr == None:
+                self.NotepadTextArea.delete("end-5c","end")
+                if curr == "    \n":    # Four spaces then \n
+                    self.NotepadTextArea.insert("insert", '\n')
+            self.NotepadTextArea.insert("insert", '}')
+        print("Pressed")
+        return 'break'
+    
     def set_dimensions(self,master,**kwargs):
         try:
             self.NotepadWidth = kwargs['width']
@@ -153,17 +190,20 @@ class Notepad:
         # Adding menu in menu bar
         self.NotepadMenuBar.add_cascade(label = name, menu = self.MenuBarDict[refName])
 
-    def AddIndentation(self,event):
+    def AddIndentation(self):
         currText = str(self.NotepadTextArea.get(1.0,END)).strip()
         def AddSpaces():
-            self.NotepadTextArea.insert("end", "    ")
+            self.NotepadTextArea.insert("insert", ' ' * 4 * self.bracketsInText)
 
         currLen = len(currText) - 1
-        if currText[currLen] == '{' or currText[currLen] == ':':
-            print("1" + currText)
-            AddSpaces()
-        else:
-            print("LOL" + currText)
+        print(":" + currText + ":" + "Len : " + str(currLen))
+        #if currText[currLen] == '{' or currText[currLen] == ':':
+        #    print(":" + currText + ":")
+        #    AddSpaces()
+        #else:
+        #    print(":" + currText + ":")
+        print(":" + currText + ":")
+        AddSpaces()
 
 
     ################################   FILE FUNCTIONS   ##########################################################
