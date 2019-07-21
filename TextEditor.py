@@ -55,16 +55,12 @@ class Notepad:
         # Adding Primary menu to the master window
         self.master.config(menu = self.NotepadMenuBar)
         
-        buttonPressed = "Hello"
-        def callbackToBind(evt, temp = buttonPressed):
-            return self.insertTab(temp)
-        
         # For binding key press event 
         self.NotepadTextArea.pack()
         # Binding Enter key press event to AddIndentation function
         keyList = ["KeyPress-Return", "Tab", "}", "{"]     # "Enter"
         for buttonPressed in keyList:
-            self.NotepadTextArea.bind('<' + buttonPressed + '>', lambda temp = buttonPressed: self.handlePressedKey(temp))
+            self.NotepadTextArea.bind('<' + buttonPressed + '>',self.handlePressedKey)
             # lambda evt, temp=button_name: self.OnButton(evt, temp)
             # self.NotepadTextArea.bind("<Enter>", self.AddIndentation)
             # self.NotepadTextArea.bind("<KeyRelease-Return>", self.AddIndentation)
