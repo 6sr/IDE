@@ -5,42 +5,42 @@ root = Tk()
 text = Text(root)
 text.insert(INSERT, "Hello, world!\n")
 text.insert(END, "This is a phrase.\n")
-text.insert(END, "Bye bye...")
+text.insert(END, "Bye bye... Hello")
 text.pack(expand=1, fill=BOTH)
 
 
+
+toFind = input("Enter : ")
+countVar = StringVar()
+start = "1.0"
+flag = 0
 while(True):
-    toFind = input("Enter : ")
-    try:
-        text.tag_remove("search", startFind, endFind)
-    except:
-        print("Error Removing")
-    try:
-        countVar = StringVar()
-        start = "1.0"
-        while(True):
-            try:
-                startFind = text.search(toFind, start, stopindex="end", count=countVar)
-                # text.sear
+        try:
+            startFind = text.search(toFind, start, stopindex="end", count=countVar)
+                
 
-                lineNum = startFind.split('.')[0]
-                startIdx = startFind.split('.')[1]
-                endFind = startFind.split('.')[0] + '.' + str(int(startFind.split('.')[1]) + len(toFind))
+            lineNum = startFind.split('.')[0]
+            startIdx = startFind.split('.')[1]
+            endFind = startFind.split('.')[0] + '.' + str(int(startFind.split('.')[1]) + len(toFind))
 
-                text.tag_add("search", startFind, endFind)
+            text.tag_add("search", startFind, endFind)
+            text.tag_config("search", background="black", foreground="yellow")
 
-                print(startFind)
-                print(endFind)
-                print(countVar)
-                start = endFind
-            except:
-                break
+            print(startFind)
+            print(endFind)
+            print(countVar)
+            start = endFind
+            flag += 1
 
-        # adding a tag to a part of text specifying the indices
-        # text.tag_add("start", "1.8", "1.13")
-        text.tag_config("search", background="black", foreground="yellow")
-    except:
-        print("Error finding")
+        except:
+            if flag>0:
+                print("Done")
+            else:
+                print("Your word is not found")
+                
+            break
+
+       
 
 
 root.mainloop()
