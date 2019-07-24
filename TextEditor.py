@@ -144,7 +144,7 @@ class Notepad:
 
     ##################################  CONSTRUCTOR FUNCTIONS  ##########################################################
     def handlePressedKey(self, keyPressed):
-        print("Pressed")
+        #print("Pressed")
         print(keyPressed)
         if keyPressed.char == "\r":
             self.NotepadTextArea.insert("insert", '\n')
@@ -157,13 +157,13 @@ class Notepad:
         elif keyPressed.char == "}":
             self.bracketsInText -= 1
             curr = self.NotepadTextArea.get("end-1c linestart","end")
-            print(':' + curr + ':')
+            #print(':' + curr + ':')
             if curr.strip() == "" or curr == None:
                 self.NotepadTextArea.delete("end-5c","end")
                 if curr == "    \n":    # Four spaces then \n
                     self.NotepadTextArea.insert("insert", '\n')
             self.NotepadTextArea.insert("insert", '}')
-        print("Pressed")
+        # print("Pressed")
         return 'break'
     
     def set_dimensions(self,master,**kwargs):
