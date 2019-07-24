@@ -123,6 +123,7 @@ class Notepad:
         RunCodeObj = RunCodeClass(NotepadObject = self)
 
         run_button = Button(self.master,bg = 'red',text = "RUN",command = RunCodeObj.RunFile)
+        
         run_button.place(x = 400,y = 0)
 
         # To make the textarea auto resizable
@@ -147,7 +148,7 @@ class Notepad:
     ##################################  CONSTRUCTOR FUNCTIONS  ##########################################################
     def handlePressedKey(self, keyPressed):
         #print("Pressed")
-        print(keyPressed)
+        #print(keyPressed)
         if keyPressed.char == "\r":
             self.NotepadTextArea.insert("insert", '\n')
             self.AddIndentation()
@@ -207,13 +208,13 @@ class Notepad:
             self.NotepadTextArea.insert("insert", ' ' * 4 * self.bracketsInText)
 
         currLen = len(currText) - 1
-        print(":" + currText + ":" + "Len : " + str(currLen))
+        #print(":" + currText + ":" + "Len : " + str(currLen))
         #if currText[currLen] == '{' or currText[currLen] == ':':
         #    print(":" + currText + ":")
         #    AddSpaces()
         #else:
         #    print(":" + currText + ":")
-        print(":" + currText + ":")
+        #print(":" + currText + ":")
         AddSpaces()
 
     def run(self):
