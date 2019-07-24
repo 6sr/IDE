@@ -120,7 +120,9 @@ class Notepad:
         self.addMenuToMenuBar("Help",helpOptions)
 
         ###########################   RUN BUTTON   ######################################
-        run_button = Button(self.master,bg = 'red',text = "RUN",command = RunCodeClass.RunFile)
+        RunCodeObj = RunCodeClass(NotepadObject = self)
+
+        run_button = Button(self.master,bg = 'red',text = "RUN",command = RunCodeObj.RunFile)
         run_button.place(x = 400,y = 0)
 
         # To make the textarea auto resizable
