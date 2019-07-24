@@ -48,7 +48,6 @@ class SearchMenuClass:
             start = "1.0"
             flag = 0
 
-            #self.NotepadReference.NotepadTextArea.tag_remove("search",1.0,END)
             while(True):
                 try:
                     startFind = self.NotepadReference.NotepadTextArea.search(toFind, start, stopindex="end", count=countVar)
@@ -58,12 +57,6 @@ class SearchMenuClass:
                     startIdx = startFind.split('.')[1]
                     endFind = startFind.split('.')[0] + '.' + str(int(startFind.split('.')[1]) + len(toFind))
 
-                    #self.NotepadReference.NotepadTextArea.tag_add("search", startFind, endFind)
-                    #self.NotepadReference.NotepadTextArea.tag_config("search", background="black", foreground="yellow")
-
-                    
-
-                    
                     self.NotepadReference.NotepadTextArea.delete(startFind,endFind)
                     self.NotepadReference.NotepadTextArea.insert(startFind,toReplace)
                 
@@ -95,9 +88,7 @@ class SearchMenuClass:
         
         e.focus_set()
 
-        #text = self.NotepadTextArea.get(1.0,END)
-        #print(text)
-
+        
         def find():
 
             toFind = w.get()
